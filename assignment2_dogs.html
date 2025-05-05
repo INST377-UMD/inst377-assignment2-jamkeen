@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <title>Assignment 2</title>
+    <head>
+        <link rel="stylesheet" href="assignment2styles.css">
+    </head>
+    <body onload="repeatFunction(10)">
+        <header>
+            <div class="page_header">
+                <h1 id="title">INST377 - Dogs</h1>
+            </div>
+            <div class="nav_list">
+                <ul style="list-style: none;">
+                    <div class="nav_elements">
+                        <li><a class="active" href="assignment2_home.html">Home</a></li>
+                        <li><a href="assignment2_stocks.html">Stocks</a></li>
+                        <li><a href="assignment2_dogs.html">Dogs</a></li>
+                    </div>
+                </ul>
+            </div>
+        </header>
+        <h1>There are some different activities we can try!</h1>
+        <div class="main_content">
+            <div id="image-content" style="width: 100%; padding-bottom: 25%" data-simple-slider>
+            </div>
+        </div>
+        <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+        <script>
+        function repeatFunction(count) {
+            if(count > 0) {
+                for(let i=0; i<count; i++) {
+                    fetchImage();
+                }
+            }
+            simpleslider.getSlider();
+        }
+        async function fetchImage() {
+            const response = await fetch('https://dog.ceo/api/breeds/image/random')
+            const data = await response.json();
+            const url = data.message;
+            const images = document.getElementById("image-content");
+            let img = document.createElement("img");
+            img.src = url;
+            img.width = 320;
+            img.height = 160;
+            images.appendChild(img);
+        }
+        if (annyang) {
+          // Let's define a command.
+          const commands = {
+            'hello': () => { alert('Hello world!'); },
+            'change the color to *tag': changeColor,
+            'navigate to *page': pageNav
+          };
+        
+          // Add our commands to annyang
+          annyang.addCommands(commands);
+        
+          // Start listening.
+          annyang.start();
+        }
+
+        function changeColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+
+        function pageNav(page) {
+            let newPage = page.toLowerCase()
+            if (newPage=="stocks"||newPage=="home"||newPage=="dogs") {
+                window.location.replace(`assignment2_${newPage}.html`);
+            }
+        }
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+        <div class="audio">
+            <footer>
+                <h2>Audio Commands:</h2>
+                <p>The page supports the following audio commands:</p>
+                <ol>
+                    <li><b>Hello:</b> Alerts "Hello World!"</li><br>
+                    <li><b>Change the color to (color):</b> Changes the background color to (color).</li><br>
+                    <li><b>Navigate to (page):</b> Redirects to (page).</li>
+                </ol>
+            </footer>    
+        </div>
+    </body>
+</html>
