@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <title>Assignment 2</title>
+    <head>
+        <link rel="stylesheet" href="assignment2styles.css">
+    </head>
+    <body onload="checkReddit()">
+        <header>
+            <div class="page_header">
+                <h1 id="title">INST377 - Stocks</h1>
+            </div>
+            <div class="nav_list">
+                <ul style="list-style: none;">
+                    <div class="nav_elements">
+                        <li><a class="active" href="assignment2_home.html">Home</a></li>
+                        <li><a href="assignment2_stocks.html">Stocks</a></li>
+                        <li><a href="assignment2_dogs.html">Dogs</a></li>
+                    </div>
+                </ul>
+            </div>
+        </header>
+        <div class="main_content">
+            <table id="stockMarket">
+
+            </table>
+        </div>
+        <div class="audio">
+            <footer>
+                <h2>Audio Commands:</h2>
+                <p>The page supports the following audio commands:</p>
+                <ol>
+                    <li><b>Hello:</b> Alerts "Hello World!"</li><br>
+                    <li><b>Change the color to (color):</b> Changes the background color to (color).</li><br>
+                    <li><b>Navigate to (page):</b> Redirects to (page).</li>
+                </ol>
+            </footer>    
+        </div>
+        <script>
+            var table = document.getElementById("stockMarket");
+            var row1 = table.insertRow(0);
+            var row1cell1 = row1.insertCell(0);
+            var row1cell2 = row1.insertCell(1);
+            var row1cell3 = row1.insertCell(2);
+            var row1cell4 = row1.insertCell(3);
+            var row2 = table.insertRow(1);
+            var row2cell1 = row2.insertCell(0);
+            var row2cell2 = row2.insertCell(1);
+            var row2cell3 = row2.insertCell(2);
+            var row2cell4 = row2.insertCell(3);
+            var row3 = table.insertRow(2);
+            var row3cell1 = row3.insertCell(0);
+            var row3cell2 = row3.insertCell(1);
+            var row3cell3 = row3.insertCell(2);
+            var row3cell4 = row3.insertCell(3);
+            var row4 = table.insertRow(3);
+            var row4cell1 = row4.insertCell(0);
+            var row4cell2 = row4.insertCell(1);
+            var row4cell3 = row4.insertCell(2);
+            var row4cell4 = row4.insertCell(3);
+            var row5 = table.insertRow(4);
+            var row5cell1 = row5.insertCell(0);
+            var row5cell2 = row5.insertCell(1);
+            var row5cell3 = row5.insertCell(2);
+            var row5cell4 = row5.insertCell(3);
+
+            var titles = table.insertRow(0);
+            var tickerName = titles.insertCell(0);
+            var senScoreName = titles.insertCell(1);
+            var numComments = titles.insertCell(2);
+            var boarBull = titles.insertCell(3);
+            tickerName.innerHTML = "Ticker";
+            senScoreName.innerHTML = "Sentiment Score";
+            numComments.innerHTML = "Number of Comments";
+            boarBull.innerHTML = "Boarish/Bullish";
+
+            async function checkReddit() {
+
+                try {
+                    const response = await fetch('https://tradestie.com/api/v1/apps/reddit?date=2022-04-03');
+                    const data = await response.json();
+                    console.log(data);
+
+                    /* Adding the top 5 most discussed stocks to the results. */
+                    row1cell1.innerHTML = `<a href=\"https://finance.yahoo.com/quote/${data[0].ticker}\">${data[0].ticker}</a>`;
+                    row1cell2.innerHTML = data[0].sentiment_score;
+                    row1cell3.innerHTML = data[0].no_of_comments;
+                    if(data[0].sentiment == "Bullish") {
+                        row1cell4.innerHTML="<img src=\"bullish.jpg\" width=\"400px\" height=\"150px\">";
+                    } else {
+                        row1cell4.innerHTML="<img src=\"boarish.jpg\" width=\"400px\" height=\"150px\">";
+                    }
+
+                    row2cell1.innerHTML = `<a href=\"https://finance.yahoo.com/quote/${data[1].ticker}\">${data[1].ticker}</a>`;
+                    row2cell2.innerHTML = data[1].sentiment_score;
+                    row2cell3.innerHTML = data[1].no_of_comments;
+                    if(data[1].sentiment == "Bullish") {
+                        row2cell4.innerHTML="<img src=\"bullish.jpg\" width=\"400px\" height=\"150px\">";
+                    } else {
+                        row2cell4.innerHTML="<img src=\"boarish.jpg\" width=\"400px\" height=\"150px\">";
+                    }
+                    
+                    row3cell1.innerHTML = `<a href=\"https://finance.yahoo.com/quote/${data[2].ticker}\">${data[2].ticker}</a>`;
+                    row3cell2.innerHTML = data[2].sentiment_score;
+                    row3cell3.innerHTML = data[2].no_of_comments;
+                    if(data[2].sentiment == "Bullish") {
+                        row3cell4.innerHTML="<img src=\"bullish.jpg\" width=\"400px\" height=\"150px\">";
+                    } else {
+                        row3cell4.innerHTML="<img src=\"boarish.jpg\" width=\"400px\" height=\"150px\">";
+                    }
+
+                    row4cell1.innerHTML = `<a href=\"https://finance.yahoo.com/quote/${data[3].ticker}\">${data[3].ticker}</a>`;
+                    row4cell2.innerHTML = data[3].sentiment_score;
+                    row4cell3.innerHTML = data[3].no_of_comments;
+                    if(data[3].sentiment == "Bullish") {
+                        row4cell4.innerHTML="<img src=\"bullish.jpg\" width=\"400px\" height=\"150px\">";
+                    } else {
+                        row4cell4.innerHTML="<img src=\"boarish.jpg\" width=\"400px\" height=\"150px\">";
+                    }
+
+                    row5cell1.innerHTML = `<a href=\"https://finance.yahoo.com/quote/${data[4].ticker}\">${data[4].ticker}</a>`;
+                    row5cell2.innerHTML = data[4].sentiment_score;
+                    row5cell3.innerHTML = data[4].no_of_comments;
+                    if(data[4].sentiment == "Bullish") {
+                        row5cell4.innerHTML="<img src=\"bullish.jpg\" width=\"400px\" height=\"150px\">";
+                    } else {
+                        row5cell4.innerHTML="<img src=\"boarish.jpg\" width=\"400px\" height=\"150px\">";
+                    }
+
+                } catch (error) {
+                    console.error("Could not fetch the data:", error.message);
+                }
+            }
+
+        if (annyang) {
+          // Let's define a command.
+          const commands = {
+            'hello': () => { alert('Hello world!'); },
+            'change the color to *tag': changeColor,
+            'navigate to *page': pageNav
+          };
+        
+          // Add our commands to annyang
+          annyang.addCommands(commands);
+        
+          // Start listening.
+          annyang.start();
+        }
+
+        function changeColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+
+        function pageNav(page) {
+            let newPage = page.toLowerCase()
+            if (newPage=="stocks"||newPage=="home"||newPage=="dogs") {
+                window.location.replace(`assignment2_${newPage}.html`);
+            }
+        }
+
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    </body>
+</html>
